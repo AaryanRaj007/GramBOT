@@ -1,0 +1,26 @@
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  training-scripts:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: training
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Compile every script
+        run: python -m py_compile *.py
+      - name: Noise generator self-check
+        run: python noise.py
+      - name: Kaggle notebook is in sync with the scripts
+        run: |
+          python make_kaggle_notebook.py
+          git diff --exit-code kaggle/grambot_train.ipynb
