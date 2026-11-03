@@ -4,6 +4,7 @@
 
 **An on-device English grammar correction model. It is small enough to run inside a browser extension, and no text leaves the machine.**
 
+[![Check](https://github.com/AaryanRaj007/GramBOT/actions/workflows/check.yml/badge.svg)](https://github.com/AaryanRaj007/GramBOT/actions/workflows/check.yml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Base model](https://img.shields.io/badge/base-google%2Fflan--t5--base-orange.svg)](https://huggingface.co/google/flan-t5-base)
 [![Parameters](https://img.shields.io/badge/parameters-248M-informational.svg)](#model-at-a-glance)
@@ -242,6 +243,7 @@ python export.py                                     # ONNX int8 -> models/gramb
     ├── eval_cases.json         50 hand-written evaluation cases
     ├── eval.txt                evaluation log of this release
     ├── make_kaggle_notebook.py regenerates the Kaggle notebook from the scripts
+    ├── tests/                  unit tests for scoring and the error generators
     └── kaggle/grambot_train.ipynb
 ```
 

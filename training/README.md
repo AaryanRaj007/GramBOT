@@ -94,7 +94,7 @@ python evaluate.py --compare out/main
 ```
 - Each hand case prints `OK` or `XX` with what the model wrote.
 - The summary line shows **P** (precision: how many of its changes were right), **R** (recall: how many needed fixes it found) and **F0.5**.
-- `--compare` also scores the stage 1 model, so you can see what the polish stage added.
+- `--compare` also scores the stage 1 model, so you can see what the polish stage added, and prints the F0.5 difference.
 - The last line must say `GATE PASS`: cases F0.5 ≥ 0.60, validation F0.5 ≥ 0.45, and ≥ 95 % of correct sentences left unchanged.
 
 ## 7. Export into the extension (~2 min)
@@ -113,6 +113,12 @@ caffeinate -is python train.py --profile max --stage polish
 python evaluate.py --compare out/main
 ```
 It's the same pipeline with twice the practice sentences and two passes over them.
+
+## Tests (no model needed, ~1 s)
+```bash
+python -m unittest discover -s tests -v
+```
+Covers edit extraction, P/R/F0.5 scoring and the error generators. CI runs them on every push.
 
 ## If the gate fails
 - **Low P, or correct sentences changed:** the model over-corrects. Raise the `identity` count in `prepare_data.py` so it sees more "leave it alone" examples.
