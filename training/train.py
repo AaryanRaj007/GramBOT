@@ -89,6 +89,10 @@ def main():
             raise SystemExit("Run stage 1 first: python train.py --profile %s" % args.profile)
         start, data_file, lr, epochs, out = str(main_out), "polish.jsonl", p["lr"] / 3, 1, final_out
 
+    for name in (data_file, "valid.jsonl"):
+        if not (HERE / "data" / name).exists():
+            raise SystemExit(f"Missing data/{name}. Build the data first: python prepare_data.py --profile {args.profile}")
+
     tok = AutoTokenizer.from_pretrained(start)
     model = AutoModelForSeq2SeqLM.from_pretrained(start)
     device = "mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu"
