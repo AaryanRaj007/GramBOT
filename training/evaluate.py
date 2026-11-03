@@ -63,7 +63,7 @@ def load(path):
     import torch
     from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
     tok = AutoTokenizer.from_pretrained(path)
-    dev = "cuda" if torch.cuda.is_available() else "cpu"
+    dev = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
     model = AutoModelForSeq2SeqLM.from_pretrained(path).eval().to(dev)
 
     def fix(texts):
