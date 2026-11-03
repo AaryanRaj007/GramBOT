@@ -118,7 +118,7 @@ It's the same pipeline with twice the practice sentences and two passes over the
 ```bash
 python -m unittest discover -s tests -v
 ```
-Covers edit extraction, P/R/F0.5 scoring and the error generators. CI runs them on every push.
+Covers edit extraction, P/R/F0.5 scoring, the error generators and the data filters. CI runs them on every push.
 
 ## If the gate fails
 - **Low P, or correct sentences changed:** the model over-corrects. Raise the `identity` count in `prepare_data.py` so it sees more "leave it alone" examples.

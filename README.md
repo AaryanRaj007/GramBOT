@@ -243,7 +243,7 @@ python export.py                                     # ONNX int8 -> models/gramb
     ├── eval_cases.json         50 hand-written evaluation cases
     ├── eval.txt                evaluation log of this release
     ├── make_kaggle_notebook.py regenerates the Kaggle notebook from the scripts
-    ├── tests/                  unit tests for scoring and the error generators
+    ├── tests/                  unit tests for scoring, error generators and data filters
     └── kaggle/grambot_train.ipynb
 ```
 
