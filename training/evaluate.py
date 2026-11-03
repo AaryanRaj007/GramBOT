@@ -113,6 +113,15 @@ def show(name, r):
     print(line)
 
 
+def show_delta(a, b):
+    """How the second model differs from the first, in F0.5 points."""
+    line = f"{'difference':28} cases F0.5 {b['cases'][2] - a['cases'][2]:+.3f}"
+    if a["valid"] and b["valid"]:
+        line += f" | valid F0.5 {b['valid'][2] - a['valid'][2]:+.3f}"
+    line += f" | correct kept {b['kept_n'][0] - a['kept_n'][0]:+d}"
+    print(line)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default=str(HERE / "out" / "grambot-gec"))
@@ -127,7 +136,9 @@ def main():
     print()
     show(Path(args.model).name, r)
     if args.compare:
-        show(Path(args.compare).name, run(args.compare, args.valid, verbose=False))
+        c = run(args.compare, args.valid, verbose=False)
+        show(Path(args.compare).name, c)
+        show_delta(r, c)
 
     ok = r["cases"][2] >= GATE["cases_f05"] and r["kept"] >= GATE["kept"] and (not r["valid"] or r["valid"][2] >= GATE["valid_f05"])
     print("GATE", "PASS" if ok else "FAIL", GATE)
